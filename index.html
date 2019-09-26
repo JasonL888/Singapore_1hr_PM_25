@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>1-hour PM 2.5</h1>
+      <span class=lighten>
+        <span>Last update {{ info.update_timestamp | formatDateTime }}</span>
+        <div class="regiontable">
+          <div class="regionrow" v-for="(value, region) in info.readings.pm25_one_hourly">
+              <div class="cell">{{region}}</div>
+              <div class="cell">{{value}} µg/m<sup>3</sup></div>
+              <div class="cell">{{ value | formatPsiFromPm25 }}</div>
+          </div>
+        </div>
+      </span>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
