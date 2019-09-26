@@ -11,11 +11,16 @@
       <h1>1-hour PM 2.5</h1>
       <span class=lighten>
         <span>Last update {{ info.update_timestamp | formatDateTime }}</span>
-        <div class="regiontable">
-          <div class="regionrow" v-for="(value, region) in info.readings.pm25_one_hourly">
-              <div class="cell">{{region}}</div>
-              <div class="cell">{{value}} µg/m<sup>3</sup></div>
-              <div class="cell">{{ value | formatPsiFromPm25 }}</div>
+        <div class="table">
+          <div class="row">
+            <div class="cell">Region</div>
+            <div class="cell">1-hr PM2.5</div>
+            <div class="cell">Est. PSI</div>
+          </div>
+          <div class="row" v-for="(value, region) in info.readings.pm25_one_hourly">
+            <div class="cell">{{region}}</div>
+            <div class="cell">{{value}} µg/m<sup>3</sup></div>
+            <div class="cell psiStatus" v-bind:class="value | formatPsiFromPm25 | formatPsiStatus">{{ value | formatPsiFromPm25 }}</div>
           </div>
         </div>
       </span>

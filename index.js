@@ -69,6 +69,21 @@ new Vue({
       }
       return psiValue.toFixed(2);
     },
+    formatPsiStatus(value)
+    {
+      if (value >= 100)
+      {
+        return("badPSI");
+      }
+      else if (value >= 50)
+      {
+        return("warningPSI");
+      }
+      else
+      {
+        return("goodPSI");
+      }
+    },
   },
   mounted () {
     axios

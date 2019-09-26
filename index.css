@@ -24,11 +24,11 @@ h1 {
   color: white;
 }
 
-.regiontable {
+.table {
   display: table;
 }
 
-.regionrow {
+.row {
   display: table-row;
 
 }
@@ -36,4 +36,21 @@ h1 {
 .cell {
   display: table-cell;
   padding: 10px 10px 10px 0px;
+}
+
+.psiStatus {
+  color: black;
+  text-align: center;
+}
+
+.goodPSI {
+  background: green;
+}
+
+.badPSI {
+  background: red;
+}
+
+.warningPSI {
+  background: yellow;
 }
