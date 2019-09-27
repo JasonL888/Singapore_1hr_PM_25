@@ -73,15 +73,15 @@ new Vue({
     {
       if (value >= 100)
       {
-        return("badPSI");
+        return("btn-danger");
       }
       else if (value >= 50)
       {
-        return("warningPSI");
+        return("btn-warning");
       }
       else
       {
-        return("goodPSI");
+        return("btn-success");
       }
     },
   },
@@ -98,3 +98,61 @@ new Vue({
       .finally(() => this.loading = false)
   }
 })
+// Sample output
+//{
+//  "region_metadata": [
+//    {
+//      "name": "west",
+//      "label_location": {
+//        "latitude": 1.35735,
+//        "longitude": 103.7
+//      }
+//    },
+//    {
+//      "name": "east",
+//      "label_location": {
+//        "latitude": 1.35735,
+//        "longitude": 103.94
+//      }
+//    },
+//    {
+//      "name": "central",
+//      "label_location": {
+//        "latitude": 1.35735,
+//        "longitude": 103.82
+//      }
+//    },
+//    {
+//      "name": "south",
+//      "label_location": {
+//        "latitude": 1.29587,
+//        "longitude": 103.82
+//      }
+//    },
+//    {
+//      "name": "north",
+//      "label_location": {
+//        "latitude": 1.41803,
+//        "longitude": 103.82
+//      }
+//    }
+//  ],
+//  "items": [
+//    {
+//      "timestamp": "2019-09-27T15:00:00+08:00",
+//      "update_timestamp": "2019-09-27T15:08:53+08:00",
+//      "readings": {
+//        "pm25_one_hourly": {
+//          "west": 31,
+//          "east": 24,
+//          "central": 28,
+//          "south": 31,
+//          "north": 28
+//        }
+//      }
+//    }
+//  ],
+//  "api_info": {
+//    "status": "healthy"
+//  }
+//}
