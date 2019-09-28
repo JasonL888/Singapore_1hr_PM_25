@@ -5,7 +5,7 @@ new Vue({
       info: {},
       psiReadings: {},
       loading: true,
-      errored: false
+      errored: false,
     }
   },
   filters: {
@@ -97,9 +97,10 @@ new Vue({
         console.log(error)
         this.errored = true
       })
-      .finally(() => this.loading = false)
-  }
-})
+      .finally(() => this.loading = false);
+  },
+});
+
 // Sample output
 //{
 //  "region_metadata": [
