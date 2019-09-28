@@ -2,7 +2,8 @@ new Vue({
   el: '#app',
   data () {
     return {
-      info: null,
+      info: {},
+      psiReadings: {},
       loading: true,
       errored: false
     }
@@ -89,6 +90,7 @@ new Vue({
     axios
       .get('https://api.data.gov.sg/v1/environment/pm25')
       .then(response => {
+        this.psiReadings = response.data.items[0].readings.pm25_one_hourly
         this.info = response.data.items[0]
       })
       .catch(error => {
