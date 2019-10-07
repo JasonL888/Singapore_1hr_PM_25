@@ -23,7 +23,7 @@
         <th scope="col">Est. PSI</th>
       </thead>
       </tbody>
-        <tr scope="row" v-for="(value, region) in psiReadings">
+        <tr scope="row" v-for="(value, region) in psiReadings" v-bind:key="region">
           <td>{{region}}</td>
           <td>{{value}} µg/m<sup>3</sup></td>
           <td class="btn" v-bind:class="value | formatPsiFromPm25 | formatPsiStatus">{{ value | formatPsiFromPm25 }}</td>
