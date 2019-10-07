@@ -1,11 +1,20 @@
+Vue.component('l-map', Vue2Leaflet.LMap)
+Vue.component('l-tile-layer', Vue2Leaflet.LTileLayer)
+Vue.component('l-marker', Vue2Leaflet.LMarker)
+Vue.component('l-popup', Vue2Leaflet.LPopup)
+
 new Vue({
   el: '#app',
   data () {
     return {
       info: {},
       psiReadings: {},
+      region_metadata: {},
       loading: true,
       errored: false,
+      url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      zoom: 12,
+      center: [1.355407, 103.807928],
     }
   },
   filters: {
@@ -92,6 +101,7 @@ new Vue({
       .then(response => {
         this.psiReadings = response.data.items[0].readings.pm25_one_hourly
         this.info = response.data.items[0]
+        this.region_metadata = response.data.region_metadata
       })
       .catch(error => {
         console.log(error)

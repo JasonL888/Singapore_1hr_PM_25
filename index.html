@@ -12,12 +12,9 @@
     <link rel="stylesheet" href="index.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-      crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/vue2-leaflet"></script>
     <title>Singapore 1-hour PM2.5</title>
   </head>
   <body>
@@ -39,9 +36,15 @@
       <caption class="small">Date from NEA: <a href="https://api.data.gov.sg/v1/environment/pm25" rel="noopener noreferrer" target="_blank">api.data.gov.sg</a></caption>
       <caption class="small">Last update {{ info.update_timestamp | formatDateTime }}</caption>
       </table>
-      <div id="map" class="map"></div>
+      <l-map class="map" :zoom="zoom" :center="center">
+        <l-tile-layer :url="url"></l-tile-layer>
+            <div v-for="nodes in region_metadata">
+              <l-marker :lat-lng=[nodes.label_location.latitude,nodes.label_location.longitude]>
+                  <l-popup>{{nodes.name}}</l-popup>
+              </l-marker>
+            </div>
+      </l-map>
     </div>
     <script src="index.js"></script>
-    <script src="map.js"></script>
   </body>
 </html>
