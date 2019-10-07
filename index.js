@@ -5,8 +5,7 @@ Vue.component('l-popup', Vue2Leaflet.LPopup)
 
 new Vue({
   el: '#app',
-  data () {
-    return {
+  data: {
       info: {},
       psiReadings: {},
       region_metadata: {},
@@ -15,7 +14,6 @@ new Vue({
       url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       zoom: 12,
       center: [1.355407, 103.807928],
-    }
   },
   filters: {
     formatDateTime (value) {
