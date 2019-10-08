@@ -1,3 +1,48 @@
+function convertPsiFromPm25(pm25Value)
+{
+  // Testing - uncomment start
+  // pm25Value = 55;
+  // testing - uncomment end
+  // [PSI-min,PSI-max],[PM2.5-min,PM2.5-max]]
+  var RANGE_PSIMIN = 0;
+  var RANGE_PSIMAX = 1;
+  var RANGE_PM25MIN = 0;
+  var RANGE_PM25MAX = 1;
+  var INDEX_PSIMAP = 0;
+  var INDEX_PM25MAP = 1;
+  // [ [PSI], [PM25] ]
+  var psiMap = [
+    [ [0,50],[0,12] ],
+    [ [51,100],[13,55] ],
+    [ [101,200],[56,150] ],
+    [ [201,300],[151,250] ],
+    [ [301,400],[251,350] ],
+    [ [401,500],[351,500] ]
+    ];
+
+  var foundFlag = false;
+  var psiLowLimit = 0;
+  var psiHighLimit = 0;
+  var pm25LowLimit = 0;
+  var pm25HighLimit = 0;
+  var psiValue = 0;
+
+  for( i=0; i<psiMap.length; i++)
+  {
+    psiLowLimit = psiMap[i][INDEX_PSIMAP][RANGE_PSIMIN];
+    psiHighLimit = psiMap[i][INDEX_PSIMAP][RANGE_PSIMAX];
+    pm25LowLimit = psiMap[i][INDEX_PM25MAP][RANGE_PM25MIN];
+    pm25HighLimit = psiMap[i][INDEX_PM25MAP][RANGE_PM25MAX];
+    if ( pm25Value >= pm25LowLimit && pm25Value <= pm25HighLimit )
+    {
+      foundFlag = true;
+      psiValue = ((pm25Value - pm25LowLimit)/(pm25HighLimit - pm25LowLimit))*(psiHighLimit - psiLowLimit) + psiLowLimit;
+      break;
+    }
+  }
+  return psiValue;
+}
+
 Vue.component('l-map', Vue2Leaflet.LMap)
 Vue.component('l-tile-layer', Vue2Leaflet.LTileLayer)
 Vue.component('l-marker', Vue2Leaflet.LMarker)
@@ -8,7 +53,8 @@ new Vue({
   data: function() {
     return{
       info: {},
-      psiReadings: {},
+      pm25Readings: {},
+      psiReadings: [],
       region_metadata: {},
       loading: true,
       errored: false,
@@ -35,50 +81,6 @@ new Vue({
       }
       return( year + "/" + month + "/" + day + " " + hour + ":" + mins )
     },
-    formatPsiFromPm25(pm25Value)
-    {
-      // Testing - uncomment start
-      // pm25Value = 55;
-      // testing - uncomment end
-      // [PSI-min,PSI-max],[PM2.5-min,PM2.5-max]]
-      var RANGE_PSIMIN = 0;
-      var RANGE_PSIMAX = 1;
-      var RANGE_PM25MIN = 0;
-      var RANGE_PM25MAX = 1;
-      var INDEX_PSIMAP = 0;
-      var INDEX_PM25MAP = 1;
-      // [ [PSI], [PM25] ]
-      var psiMap = [
-        [ [0,50],[0,12] ],
-        [ [51,100],[13,55] ],
-        [ [101,200],[56,150] ],
-        [ [201,300],[151,250] ],
-        [ [301,400],[251,350] ],
-        [ [401,500],[351,500] ]
-        ];
-
-      var foundFlag = false;
-      var psiLowLimit = 0;
-      var psiHighLimit = 0;
-      var pm25LowLimit = 0;
-      var pm25HighLimit = 0;
-      var psiValue = 0;
-
-      for( i=0; i<psiMap.length; i++)
-      {
-        psiLowLimit = psiMap[i][INDEX_PSIMAP][RANGE_PSIMIN];
-        psiHighLimit = psiMap[i][INDEX_PSIMAP][RANGE_PSIMAX];
-        pm25LowLimit = psiMap[i][INDEX_PM25MAP][RANGE_PM25MIN];
-        pm25HighLimit = psiMap[i][INDEX_PM25MAP][RANGE_PM25MAX];
-        if ( pm25Value >= pm25LowLimit && pm25Value <= pm25HighLimit )
-        {
-          foundFlag = true;
-          psiValue = ((pm25Value - pm25LowLimit)/(pm25HighLimit - pm25LowLimit))*(psiHighLimit - psiLowLimit) + psiLowLimit;
-          break;
-        }
-      }
-      return psiValue.toFixed(2);
-    },
     formatPsiStatus(value)
     {
       if (value >= 100)
@@ -99,7 +101,12 @@ new Vue({
     axios
       .get('https://api.data.gov.sg/v1/environment/pm25')
       .then(response => {
-        this.psiReadings = response.data.items[0].readings.pm25_one_hourly
+        this.pm25Readings = response.data.items[0].readings.pm25_one_hourly;
+        for (region in this.pm25Readings)
+        {
+          entry = [ region, this.pm25Readings[region], parseFloat(convertPsiFromPm25(this.pm25Readings[region])).toFixed(2) ]
+          this.psiReadings.push(entry);
+        }
         this.info = response.data.items[0]
         this.region_metadata = response.data.region_metadata
       })
