@@ -47,6 +47,7 @@ Vue.component('l-map', Vue2Leaflet.LMap)
 Vue.component('l-tile-layer', Vue2Leaflet.LTileLayer)
 Vue.component('l-marker', Vue2Leaflet.LMarker)
 Vue.component('l-popup', Vue2Leaflet.LPopup)
+Vue.component('l-control-attribution', Vue2Leaflet.LControlAttribution)
 
 new Vue({
   el: '#app',
