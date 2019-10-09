@@ -12,6 +12,7 @@ Use browser to open the index.html file
 ## Implementation
 * Uses Vue
   * with axios to obtain the NEA data from https://api.data.gov.sg/v1/environment/pm25
+  * Vue2Leaflet and leaflet to integrate with openstreetmap
 * Uses OpenStreetMap
 
 ## License
@@ -20,5 +21,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgements
 Many thanks to the all the developers at
 * Vue
+* Vue2Leaflet
+* Leaflet 
 * OpenStreetMap
 * data.gov
