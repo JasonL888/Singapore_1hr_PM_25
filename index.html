@@ -34,7 +34,6 @@
       </table>
       <l-map class="map" :zoom="zoom" :center="center">
         <l-tile-layer :url="url"></l-tile-layer>
-            <l-control-attribution position="topright" prefix="© OpenStreetMap contributors" >
             <div v-for="item in psiReadings">
               <l-marker :lat-lng=region_location[item[0]]>
                   <l-popup>
@@ -44,6 +43,7 @@
                   </l-popup>
               </l-marker>
             </div>
+            <l-control-attribution position="topright" prefix="© OpenStreetMap contributors" >          
       </l-map>
     </div>
     <script src="index.js"></script>
