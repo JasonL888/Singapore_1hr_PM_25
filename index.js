@@ -55,7 +55,13 @@ new Vue({
       info: {},
       pm25Readings: {},
       psiReadings: [],
-      region_metadata: {},
+      region_location: {
+        "west": [1.35735,103.7],
+        "east": [1.35735,103.94],
+        "central":[1.35735,103.82],
+        "south": [1.29587,103.82],
+        "north": [1.41803,103.82],
+      },
       loading: true,
       errored: false,
       url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -101,14 +107,17 @@ new Vue({
     axios
       .get('https://api.data.gov.sg/v1/environment/pm25')
       .then(response => {
+        this.info = response.data.items[0];
         this.pm25Readings = response.data.items[0].readings.pm25_one_hourly;
         for (region in this.pm25Readings)
         {
-          entry = [ region, this.pm25Readings[region], parseFloat(convertPsiFromPm25(this.pm25Readings[region])).toFixed(2) ]
+          entry =[
+            region,
+            this.pm25Readings[region],
+            parseFloat(convertPsiFromPm25(this.pm25Readings[region])).toFixed(2)
+          ];
           this.psiReadings.push(entry);
         }
-        this.info = response.data.items[0]
-        this.region_metadata = response.data.region_metadata
       })
       .catch(error => {
         console.log(error)

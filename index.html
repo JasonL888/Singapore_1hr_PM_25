@@ -32,12 +32,15 @@
       <caption class="small">Date from NEA: <a href="https://api.data.gov.sg/v1/environment/pm25" rel="noopener noreferrer" target="_blank">api.data.gov.sg</a></caption>
       <caption class="small">Last update {{ info.update_timestamp | formatDateTime }}</caption>
       </table>
-
       <l-map class="map" :zoom="zoom" :center="center">
         <l-tile-layer :url="url"></l-tile-layer>
-            <div v-for="nodes in region_metadata">
-              <l-marker :lat-lng=[nodes.label_location.latitude,nodes.label_location.longitude]>
-                  <l-popup>{{nodes.name}}</l-popup>
+            <div v-for="item in psiReadings">
+              <l-marker :lat-lng=region_location[item[0]]>
+                  <l-popup>
+                    <H1>{{item[0]}}</H1>
+                    <div class="btn">PM2.5:{{item[1]}} µg/m<sup>3</sup></div>
+                    <div class="btn" v-bind:class="item[2] | formatPsiStatus">PSI: {{item[2]}}</div>
+                  </l-popup>
               </l-marker>
             </div>
       </l-map>
