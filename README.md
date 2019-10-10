@@ -1,3 +1,6 @@
+---
+permalink: /index.html
+---
 # Singapore_1hr_PM_25
 Displays the 1-hour PM 2.5 readings obtain from from Singapore NEA (National Environment Agency)
 
