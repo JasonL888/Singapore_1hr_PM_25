@@ -37,9 +37,16 @@
             <div v-for="item in psiReadings">
               <l-marker :lat-lng=region_location[item[0]]>
                   <l-popup>
-                    <H1>{{item[0]}}</H1>
-                    <div class="btn">{{item[1]}} µg/m<sup>3</sup></div>
-                    <div class="btn" v-bind:class="item[2] | formatPsiStatus">PSI: {{item[2]}}</div>
+                    <table class="table">
+                      <tbody>
+                      <tr>
+                        <td scope="row" class="btn" v-bind:class="item[2] | formatPsiStatus">PSI: {{item[2]}}</td>
+                     </tr>
+                     <tr>
+                       <td scope="row" class="btn">{{item[1]}} µg/m<sup>3</sup></td>
+                     </tr>
+                    </tbody>
+                  </table>
                   </l-popup>
               </l-marker>
             </div>
