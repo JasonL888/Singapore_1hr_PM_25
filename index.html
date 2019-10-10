@@ -38,7 +38,7 @@
               <l-marker :lat-lng=region_location[item[0]]>
                   <l-popup>
                     <H1>{{item[0]}}</H1>
-                    <div class="btn">PM2.5: {{item[1]}} µg/m<sup>3</sup></div>
+                    <div class="btn">{{item[1]}} µg/m<sup>3</sup></div>
                     <div class="btn" v-bind:class="item[2] | formatPsiStatus">PSI: {{item[2]}}</div>
                   </l-popup>
               </l-marker>
