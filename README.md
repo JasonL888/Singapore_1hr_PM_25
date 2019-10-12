@@ -22,10 +22,11 @@ Use browser to open the index.html file
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgements
-Many thanks to the all the developers at
+Many thanks to the all the involved at
 * Vue
 * Vue2Leaflet
-* Leaflet 
+* Leaflet
 * OpenStreetMap
 * data.gov
+* NEA
 * bootstrap
