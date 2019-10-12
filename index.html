@@ -15,9 +15,9 @@
   </head>
   <body>
     <div id="app" class="container-fluid">
-      <h1>Singapore Air Quality: 1-hour PM 2.5</h1>
+      <h4>Singapore Air Quality</h4>
       <table class="table">
-      <thead>
+      <thead class="small">
         <th scope="col">Region</th>
         <th scope="col">1-hr PM2.5</th>
         <th scope="col">Est. PSI</th>
@@ -29,8 +29,9 @@
           <td class="btn" v-bind:class="item[2] | formatPsiStatus">{{item[2]}}</td>
         </tr>
       </tbody>
-      <caption class="small">1-hr PM2.5 data retrieve from NEA: <a href="https://api.data.gov.sg/v1/environment/pm25" rel="noopener noreferrer" target="_blank">api.data.gov.sg</a> (last update {{ info.update_timestamp | formatDateTime }})</caption>
-      <caption class="small">Est. PSI calculated using above 1-hr PM2.5 values with same  <a href="https://www.haze.gov.sg/docs/default-source/faq/computation-of-the-pollutant-standards-index-(psi).pdf" rel="noopener noreferrer" target="_blank">tables</a> for 24hr PM2.5 </caption>
+      <caption class="small">1hr-PM2.5 data: <a href="https://api.data.gov.sg/v1/environment/pm25" rel="noopener noreferrer" target="_blank">NEA api.data.gov.sg</a></caption>
+      <caption class="small"><ul><li>last update {{ info.update_timestamp | formatDateTime }}</li></ul></caption>
+      <caption class="small">PSI: estimated with <a href="https://www.haze.gov.sg/docs/default-source/faq/computation-of-the-pollutant-standards-index-(psi).pdf" rel="noopener noreferrer" target="_blank">24-hr PM2.5 tables</a></caption>
       </table>
       <l-map class="map" :zoom="zoom" :center="center">
         <l-tile-layer :url="url"></l-tile-layer>
